@@ -1,5 +1,4 @@
-#include <iostream>
-#include <string>
+#include "main.h"
 
 int main() {
 	int tileValue;
@@ -14,7 +13,7 @@ int main() {
 		}
 	}
 	std::cout << tileValue << std::endl;
-	
+
 	std::string Map = "abcdefghijklmnop";
 	for (i = 0; i < 4; i++) {
 		for (j = 0; j < 4; j++) {
@@ -25,3 +24,8 @@ int main() {
 
 	return 0;
 }
+
+/*
+
+
+*/
