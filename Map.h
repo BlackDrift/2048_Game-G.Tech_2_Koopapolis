@@ -16,8 +16,7 @@ public:
 
 	//Method
 	void SetSize();
-	//void FillMap();
 	void PrintMap();
-
+	void SpawnTile();
 	//Destructor
 };

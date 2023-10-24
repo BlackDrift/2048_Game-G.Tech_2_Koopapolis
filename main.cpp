@@ -15,6 +15,7 @@ int main()
 	std::cout << tile3->value << std::endl;
 	Map current;
 	current.PrintMap();
+	current.SpawnTile();
 	return 0;
 }
 
