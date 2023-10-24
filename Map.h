@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "Tile.h"
 
 class Map
 {
@@ -9,7 +10,7 @@ public:
 	//Attributes
 	int	size;
 	int squareSize;
-	std::vector<char> mContent;
+	std::vector<Tile> mContent;
 
 	//Constructor
 	Map();

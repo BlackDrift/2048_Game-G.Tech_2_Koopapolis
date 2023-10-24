@@ -1,11 +1,5 @@
 #include "Tile.h"
 
-Position::Position(int x, int y)
-{
-	this->posx = x;
-	this->posy = y;
-}
-
 Tile::Tile()
 {
 	this->value = getNumber();

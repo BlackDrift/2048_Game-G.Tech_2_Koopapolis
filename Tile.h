@@ -1,12 +1,14 @@
 #pragma once
-#include "Map.h"
 #include <iostream>
 
-class Tile:Map
+class Tile
 {
 public:
 	//Attributes
 	int	value;
+	int pos;
+	int x;
+	int y;
 
 	//Constructor
 	Tile();
@@ -23,17 +25,3 @@ public:
 	}
 };
 
-class Position:Tile
-{
-public:
-	//Attributes
-	int posx;
-	int posy;
-
-	//Constructor
-	Position(int x, int y);
-
-	//Method
-
-	//Destructor
-};
