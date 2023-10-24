@@ -1,7 +1,6 @@
-#ifndef TILE_H
-# define TILE_H
+#pragma once
 
-#include "main.h"
+#include <iostream>
 
 class Tile
 {
@@ -13,17 +12,9 @@ public:
 	Tile();
 
 	//Method
-	int getNumber()
-	{
-		int value = (rand() % 2 + 1) * 2 ;
-		return value;
-	}
+	int getNumber();
+	void evolve();
 
-	void evolve()
-	{
-		this->value = value * 2;
-	}
-	
 
 	//Destructor
 	~Tile()
@@ -32,4 +23,3 @@ public:
 	}
 };
 
-#endif
