@@ -10,12 +10,26 @@ public:
 	int	value;
 
 	//Constructor
-	Tile(int);
+	Tile();
 
 	//Method
+	int getNumber()
+	{
+		int value = (rand() % 2 + 1) * 2 ;
+		return value;
+	}
 
+	void evolve()
+	{
+		this->value = value * 2;
+	}
+	
 
 	//Destructor
+	~Tile()
+	{
+
+	}
 };
 
 #endif

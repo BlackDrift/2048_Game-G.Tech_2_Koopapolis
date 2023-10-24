@@ -13,7 +13,7 @@ public:
 	std::vector<char> mMap;
 
 	//Constructor
-	Map(std::string);
+	//Map(std::string);
 
 	//Method
 
