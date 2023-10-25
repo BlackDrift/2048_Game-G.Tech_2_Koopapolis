@@ -1,6 +1,7 @@
 #include "Map.h"
 #include "Tile.h"
 #include <iostream>
+#include <cstdlib>
 
 Map::Map()
 {
@@ -19,6 +20,10 @@ Map::Map()
 			this->mContent.push_back((tile));
 			tile.pos = position;
 		}
+	}
+	for (int k = 0; k < 2; k++)
+	{
+		this->SpawnTile();
 	}
 }
 
@@ -40,10 +45,20 @@ void	Map::PrintMap()
 
 void	Map::SpawnTile()
 {
+	srand(time(0));
 	int pos = rand() % this->squareSize + 1;
 	while (this->mContent.at(pos).value != 0)
 		pos = rand() % this->squareSize + 1;
 	this->mContent.at((pos)).value = (rand() % 2 + 1) * 2;
 	
+}
+
+void	Map::ChangeMap(char direction)
+{
+	switch ()
+	{
+	case direction == 'L':
+		this->mContent;
+	}
 }
 

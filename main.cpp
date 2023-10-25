@@ -16,6 +16,8 @@ int main()
 	Map current;
 	current.PrintMap();
 	current.SpawnTile();
+	std::cout << std::endl;
+	current.PrintMap();
 	return 0;
 }
 

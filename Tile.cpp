@@ -1,4 +1,5 @@
 #include "Tile.h"
+#include <cstdlib>
 
 Tile::Tile()
 {
@@ -7,6 +8,7 @@ Tile::Tile()
 
 int Tile::getNumber()
 {
+	srand(time(0));
 	int value = (rand() % 2 + 1) * 2;
 	return value;
 }

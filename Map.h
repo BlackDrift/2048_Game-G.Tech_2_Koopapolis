@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "Tile.h"
+#include <string>
 
 class Map
 {
@@ -19,5 +20,6 @@ public:
 	void SetSize();
 	void PrintMap();
 	void SpawnTile();
+	void ChangeMap(char direction);
 	//Destructor
 };
