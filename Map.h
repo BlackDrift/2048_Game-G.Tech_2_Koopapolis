@@ -20,6 +20,9 @@ public:
 	void SetSize();
 	void PrintMap();
 	void SpawnTile();
-	void ChangeMap(char direction);
+	void RefreshScreen();
+	//bool CanMove(Tile tile);
+	//bool CheckIsDone();
+	void ChangeMap(int direction);
 	//Destructor
 };

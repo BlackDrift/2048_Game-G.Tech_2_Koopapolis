@@ -1,7 +1,7 @@
 #include "Map.h"
 #include "Tile.h"
 #include <iostream>
-#include <cstdlib>
+
 
 Map::Map()
 {
@@ -45,20 +45,72 @@ void	Map::PrintMap()
 
 void	Map::SpawnTile()
 {
-	srand(time(0));
-	int pos = rand() % this->squareSize + 1;
-	while (this->mContent.at(pos).value != 0)
-		pos = rand() % this->squareSize + 1;
-	this->mContent.at((pos)).value = (rand() % 2 + 1) * 2;
 	
+	int pos = rand() % this->squareSize;
+	while (this->mContent.at(pos).value != 0)
+		pos = rand() % this->squareSize;
+	this->mContent.at((pos)).value = this->mContent.at((pos)).getNumber();
 }
 
-void	Map::ChangeMap(char direction)
+void	Map::RefreshScreen()
 {
-	switch ()
+	system("cls");
+	this->PrintMap();
+
+}
+
+/*bool Map::CanMove(Tile tile)
+{
+	int position = tile.pos;
+	switch(position)
 	{
-	case direction == 'L':
-		this->mContent;
+		case ((position + 1 >= 0 && position + 1 < 16 ) && ((this->mContent.at(position + 1) == 0)) || (this->mContent.at(position + 1) == this->mContent.at(position))):
+			return true;
+		case ((position - 1 >= 0 && position - 1 < 16) && ((this->mContent.at(position - 1) == 0)) || (this->mContent.at(position - 1) == this->mContent.at(position))):
+			return true;
+		case ((position + 4 >= 0 && position + 4 < 16) && ((this->mContent.at(position + 4) == 0)) || (this->mContent.at(position + 4) == this->mContent.at(position))):
+			return true;
+		case ((position - 4 >= 0 && position - 4 < 16) && ((this->mContent.at(position - 4) == 0)) || (this->mContent.at(position - 4) == this->mContent.at(position))):
+			return true;
+		default:
+			return false;
+	}
+}
+
+bool	Map::CheckIsDone()
+{
+	for (int i = 0; i < this->squareSize; ++i)
+	{
+		if (this->mContent.at(i) == 0 && )
+	}
+}
+*/
+
+void	Map::ChangeMap(int direction)
+{
+	switch (...)
+	{
+		case (direction == 1):
+			for (int i = 0; i < this->squareSize; i++)
+			{
+				for (int j = 0; j < this->squareSize; j++)
+				{
+					if (this->mContent.at((4 * i + j)).value != 0) {
+						if (this->mContent.at((4 * i + j - 1)).value == 0) {
+							this->mContent.at((4 * i + j - 1)).value = this->mContent.at((4 * i + j)).value;
+							this->mContent.at((4 * i + j)).value = 0;
+						}
+					}
+				}
+			}
+		case (direction == 2):
+			break;
+		case (direction == 3):
+			break;
+		case (direction == 4):
+			break;
+		default:
+			break;
 	}
 }
 
