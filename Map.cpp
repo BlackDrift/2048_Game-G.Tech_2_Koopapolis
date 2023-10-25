@@ -59,33 +59,31 @@ void	Map::RefreshScreen()
 
 }
 
-/*bool Map::CanMove(Tile tile)
+bool Map::CanMove(Tile tile)
 {
 	int position = tile.pos;
-	switch(position)
-	{
-		case ((position + 1 >= 0 && position + 1 < 16 ) && ((this->mContent.at(position + 1) == 0)) || (this->mContent.at(position + 1) == this->mContent.at(position))):
-			return true;
-		case ((position - 1 >= 0 && position - 1 < 16) && ((this->mContent.at(position - 1) == 0)) || (this->mContent.at(position - 1) == this->mContent.at(position))):
-			return true;
-		case ((position + 4 >= 0 && position + 4 < 16) && ((this->mContent.at(position + 4) == 0)) || (this->mContent.at(position + 4) == this->mContent.at(position))):
-			return true;
-		case ((position - 4 >= 0 && position - 4 < 16) && ((this->mContent.at(position - 4) == 0)) || (this->mContent.at(position - 4) == this->mContent.at(position))):
-			return true;
-		default:
-			return false;
-	}
+	if ((position + 1 >= 0 && position + 1 < 16) && ((this->mContent.at(position + 1).value == 0)) || (this->mContent.at(position + 1).value == this->mContent.at(position).value))
+		return true;
+	else if ((position - 1 >= 0 && position - 1 < 16) && ((this->mContent.at(position - 1).value == 0)) || (this->mContent.at(position - 1).value == this->mContent.at(position).value))
+		return true;
+	else if ((position + 4 >= 0 && position + 4 < 16) && ((this->mContent.at(position + 4).value == 0)) || (this->mContent.at(position + 4).value == this->mContent.at(position).value))
+		return true;
+	else if ((position - 4 >= 0 && position - 4 < 16) && ((this->mContent.at(position - 4).value == 0)) || (this->mContent.at(position - 4).value == this->mContent.at(position).value))
+		return true;
+	else
+		return false;
 }
 
 bool	Map::CheckIsDone()
 {
 	for (int i = 0; i < this->squareSize; ++i)
 	{
-		if (this->mContent.at(i) == 0 && )
+		if (this->mContent.at(i).value != 0 && this->CanMove(this->mContent.at(i)) == 0)
+			return (false);
 	}
 }
-*/
 
+/*
 void	Map::ChangeMap(int direction)
 {
 	switch (...)
@@ -113,4 +111,4 @@ void	Map::ChangeMap(int direction)
 			break;
 	}
 }
-
+*/

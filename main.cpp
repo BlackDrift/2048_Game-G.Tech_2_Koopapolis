@@ -26,7 +26,9 @@ int main()
 	current.PrintMap();
 	current.SpawnTile();
 	current.RefreshScreen();
+	std::cout << current.CheckIsDone() << std::endl;
 	
+	/*
 	while (gameLoop)
 	{
 		gameLoop = false;
@@ -52,6 +54,7 @@ int main()
 		current.SpawnTile();
 		current.RefreshScreen();
 	}
+	*/
 	return 0;
 }
 

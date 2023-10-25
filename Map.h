@@ -21,8 +21,8 @@ public:
 	void PrintMap();
 	void SpawnTile();
 	void RefreshScreen();
-	//bool CanMove(Tile tile);
-	//bool CheckIsDone();
-	void ChangeMap(int direction);
+	bool CanMove(Tile tile);
+	bool CheckIsDone();
+	//void ChangeMap(int direction);
 	//Destructor
 };
