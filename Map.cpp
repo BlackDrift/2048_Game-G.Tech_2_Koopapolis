@@ -33,18 +33,6 @@ void	Map::SetSize()
 	this->squareSize = (this->size * this->size);
 }
 
-void	Map::PrintMap()
-{
-	for (int i = 0; i < this->squareSize; ++i)
-	{
-		std::cout << this->mContent.at(i).value;
-		if ((i + 1) % this->size == 0)
-			std::cout << std::endl;
-	}
-}
-
-/*
-
 void	Map::PrintNb(int nb)
 {
 	int	i = 1;
@@ -56,22 +44,31 @@ void	Map::PrintNb(int nb)
 		i++;
 	}
 	for (int j = 0; j < (sizeMax - i); j++)
-		std::cout << ' '
+		std::cout << ' ';
+	std::cout << nb;
+
 }
 
 void	Map::PrintMap()
 {
+	for (int n = 0; n < (this->size * 5 + this->size + 1); n++)
+		std::cout << '-';
+	std::cout << std::endl;
 	for (int i = 0; i < this->size; ++i)
 	{
 		for (int j = 0; j < this->size; j++)
 		{
-			std::cout << this->mContent.at(i).value;
-			if ((i + 1) % this->size == 0)
-				std::cout << std::endl;
+			if (j == 0 || j == this->size)
+				std::cout << '|' ;
+			int tab[2] = { j, i };
+			PrintNb(this->TileAt(tab).value);
+			std::cout << '|';
 		}
+		std::cout << std::endl;
 	}
+	for (int m = 0; m < (this->size * 5 + this->size + 1); m++)
+		std::cout << '-';
 }
-*/
 
 void	Map::SpawnTile()
 {
@@ -139,18 +136,14 @@ void Map::MoveTiles(char direction)
 		for (int i = 0; i < this->size; ++i)
 		{
 			for (int j = 0; j < this->size; j++)
-			{
 				this->MoveLeft(this->mContent.at(i + (this->size * j)));
-			}
 		}
 		break;
 	case ('r'):
 		for (int i = this->size - 1; i >= 0; --i)
 		{
 			for (int j = 0; j < this->size; j++)
-			{
 				this->MoveDown(this->mContent.at(i + (this->size * j)));
-			}
 		}
 		break;
 	default:
@@ -165,6 +158,7 @@ bool Map::CanEvolve(char direction, Tile tile)
 	int tileX = tile.x;
 	int tileY = tile.y;
 	int* tab[2];
+
 	switch (direction)
 	{
 	case('u'):
@@ -189,10 +183,11 @@ bool Map::CanEvolve(char direction, Tile tile)
 
 bool Map::CanMove(char direction, Tile tile)
 {
-	int tileX = tile.x;
+	int	tileX = tile.x;
 	int tileY = tile.y;
 	int position = tile.pos;
 	int* tab[2];
+
 	switch (direction)
 	{
 		
