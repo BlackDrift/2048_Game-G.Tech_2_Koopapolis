@@ -151,7 +151,7 @@ void Map::MoveTiles(char direction)
 	}
 }
 
-
+// Ca casse juste en dessous !!
 
 bool Map::CanEvolve(char direction, Tile tile)
 {
@@ -162,19 +162,19 @@ bool Map::CanEvolve(char direction, Tile tile)
 	switch (direction)
 	{
 	case('u'):
-		if (tile.x > 1 && tile.value == this->TileAt(tab[tileX-1, tileY]).value)
+		if (tile.x > 1 && tile.value == this->TileAt(tab[tileX - 1, tileY]).value)
 			return true;
 		break;
 	case ('d'):
-		if (tile.x < 4 && tile.value == this->TileAt(tab[tileX+1, tileY]).value)
+		if (tile.x < 4 && tile.value == this->TileAt(tab[tileX + 1, tileY]).value)
 			return true;
 		break;
 	case('l'):
-		if (tile.y > 1 && tile.value == this->TileAt(tab[tileX, tileY-1]).value)
+		if (tile.y > 1 && tile.value == this->TileAt(tab[tileX, tileY - 1]).value)
 			return true;
 		break;
 	case('r'):
-		if (tile.y < 4 && tile.value == this->TileAt(tab[tileX, tileY+1]).value)
+		if (tile.y < 4 && tile.value == this->TileAt(tab[tileX, tileY + 1]).value)
 			return true;
 		break;
 	}
