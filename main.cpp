@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "time.h"
 #include <conio.h>
+//#include "Move.h"
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -18,7 +19,7 @@ int main()
 	Tile* tile2 = new Tile();
 	Tile* tile3 = new Tile();
 	std::cout << tile1->value << std::endl;
-	tile1->evolve();
+	tile1->Evolve();
 	std::cout << tile1->value << std::endl;
 	std::cout << tile2->value << std::endl;
 	std::cout << tile3->value << std::endl;
@@ -28,7 +29,7 @@ int main()
 	current.RefreshScreen();
 	std::cout << current.CheckIsDone() << std::endl;
 	
-	/*
+	
 	while (gameLoop)
 	{
 		gameLoop = false;
@@ -36,16 +37,16 @@ int main()
 		switch ((c = _getch()))
 		{
 			case KEY_UP:
-				current.ChangeMap(1);
+				current.MoveTiles('u');
 				break;
 			case KEY_DOWN:
-				current.ChangeMap(2);
-				break;
-			case KEY_RIGHT:
-				current.ChangeMap(3);
+				current.MoveTiles('d');
 				break;
 			case KEY_LEFT:
-				current.ChangeMap(4);
+				current.MoveTiles('l');
+				break;
+			case KEY_RIGHT:
+				current.MoveTiles('r');
 				break;
 			default:
 				gameLoop = true;
@@ -54,7 +55,7 @@ int main()
 		current.SpawnTile();
 		current.RefreshScreen();
 	}
-	*/
+	
 	return 0;
 }
 

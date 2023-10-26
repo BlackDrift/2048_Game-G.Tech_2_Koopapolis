@@ -14,8 +14,9 @@ public:
 	Tile();
 
 	//Method
-	int getNumber();
-	void evolve();
+	int GetNumber();
+	void Evolve();
+	void Reset();
 
 
 	//Destructor

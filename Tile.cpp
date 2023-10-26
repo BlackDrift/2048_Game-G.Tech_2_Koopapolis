@@ -3,16 +3,21 @@
 
 Tile::Tile()
 {
-	this->value = getNumber();
+	this->value = GetNumber();
 }
 
-int Tile::getNumber()
+int Tile::GetNumber()
 {
 	int value = (rand() % 2 + 1) * 2;
 	return value;
 }
 
-void Tile::evolve()
+void Tile::Evolve()
 {
 	this->value = this->value * 2;
+}
+
+void Tile::Reset()
+{
+	this->value = 0;
 }

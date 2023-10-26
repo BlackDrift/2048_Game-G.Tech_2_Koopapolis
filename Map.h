@@ -21,8 +21,16 @@ public:
 	void PrintMap();
 	void SpawnTile();
 	void RefreshScreen();
-	bool CanMove(Tile tile);
 	bool CheckIsDone();
-	//void ChangeMap(int direction);
+	Tile TileAt(int* tab);
+	void MoveTiles(char direction);
+	bool CanEvolve(char direction, Tile tile);
+	bool CanMove(char direction, Tile tile);
+	void Swap(char direction, Tile tile);
+	void MoveUp(Tile tile);
+	void MoveDown(Tile tile);
+	void MoveLeft(Tile tile);
+	void MoveRight(Tile tile);
+
 	//Destructor
 };
