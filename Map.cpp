@@ -60,8 +60,7 @@ void	Map::PrintMap()
 		{
 			if (j == 0 || j == this->size)
 				std::cout << '|' ;
-			int tab[2] = { j, i };
-			PrintNb(this->TileAt(tab).value);
+			PrintNb(this->TileAt(j, i).value);
 			std::cout << '|';
 		}
 		std::cout << std::endl;
@@ -97,11 +96,8 @@ int*	Map::GetCoords(int position)
 	return tab;
 }*/
 
-Tile	Map::TileAt(int *tab)
+Tile	Map::TileAt(int x, int y)
 {
-	int x = tab[1];
-	int y = tab[0];
-	
 	return (this->mContent.at(4 * x + y));
 }
 
@@ -162,19 +158,19 @@ bool Map::CanEvolve(char direction, Tile tile)
 	switch (direction)
 	{
 	case('u'):
-		if (tile.x > 1 && tile.value == this->TileAt(tab[tileX - 1, tileY]).value)
+		if (tile.x > 1 && tile.value == this->TileAt(tileX - 1, tileY).value)
 			return true;
 		break;
 	case ('d'):
-		if (tile.x < 4 && tile.value == this->TileAt(tab[tileX + 1, tileY]).value)
+		if (tile.x < 4 && tile.value == this->TileAt(tileX + 1, tileY).value)
 			return true;
 		break;
 	case('l'):
-		if (tile.y > 1 && tile.value == this->TileAt(tab[tileX, tileY - 1]).value)
+		if (tile.y > 1 && tile.value == this->TileAt(tileX, tileY - 1).value)
 			return true;
 		break;
 	case('r'):
-		if (tile.y < 4 && tile.value == this->TileAt(tab[tileX, tileY + 1]).value)
+		if (tile.y < 4 && tile.value == this->TileAt(tileX, tileY + 1).value)
 			return true;
 		break;
 	}
@@ -192,19 +188,19 @@ bool Map::CanMove(char direction, Tile tile)
 	{
 		
 	case('u'):
-		if (tile.x > 1 && TileAt(tab[tileX - 1, tileY]).value == 0)
+		if (tile.x > 1 && TileAt(tileX - 1, tileY).value == 0)
 			return true;
 		break;
 	case ('d'):
-		if (tile.x < 4 && TileAt(tab[tileX + 1, tileY]).value == 0)
+		if (tile.x < 4 && TileAt(tileX + 1, tileY).value == 0)
 			return true;
 		break;
 	case('l'):
-		if (tile.y > 1 && TileAt(tab[tileX, tileY - 1]).value == 0)
+		if (tile.y > 1 && TileAt(tileX, tileY - 1).value == 0)
 			return true;
 		break;
 	case('r'):
-		if (tile.y < 4 && TileAt(tab[tileX, tileY + 1]).value == 0)
+		if (tile.y < 4 && TileAt(tileX, tileY + 1).value == 0)
 			return true;
 		break;
 	/*case('0'):
@@ -254,7 +250,7 @@ void Map::MoveUp(Tile tile)
 	}
 	else if (CanMove('u', tile))
 	{
-		while (CanMove('u', tile)){
+		while (CanMove('u', tile) && tile.pos > 3){
 			this->Swap('l', tile);
 			tile = this->mContent.at(tile.pos - 4);
 		}
@@ -271,7 +267,7 @@ void Map::MoveDown(Tile tile)
 	}
 	else if (CanMove('d', tile))
 	{
-		while (CanMove('d', tile)){
+		while (CanMove('d', tile) && tile.pos < 12){
 			this->Swap('d', tile);
 			tile = this->mContent.at(tile.pos + 4);
 		}
@@ -288,7 +284,7 @@ void Map::MoveLeft(Tile tile)
 	}
 	else if (CanMove('l', tile))
 	{
-		while (CanMove('l', tile)){
+		while (CanMove('l', tile) && tile.pos % 4 != 0){
 			this->Swap('l', tile);
 			tile = this->mContent.at(tile.pos - 1);
 		}
@@ -305,7 +301,7 @@ void Map::MoveRight(Tile tile)
 	}
 	else if (CanMove('r', tile))
 	{
-		while (CanMove('r', tile)){
+		while (CanMove('r', tile) && tile.pos % 4 != 3){
 			this->Swap('r', tile);
 			tile = this->mContent.at(tile.pos + 1);
 		}

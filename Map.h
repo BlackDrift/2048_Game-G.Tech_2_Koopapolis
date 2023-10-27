@@ -24,7 +24,7 @@ public:
 	bool CanMove(char direction, Tile tile);
 	bool CheckIsDone();
 	void PrintNb(int nb);
-	Tile TileAt(int* tab);
+	Tile TileAt(int x, int y);
 	void MoveTiles(char direction);
 	bool CanEvolve(char direction, Tile tile);
 	void Swap(char direction, Tile tile);

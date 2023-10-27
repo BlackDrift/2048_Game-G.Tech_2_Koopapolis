@@ -50,9 +50,11 @@ int main()
 				current.MoveTiles('r');
 				break;
 			default:
+				std::cout << "???" << std::endl;
 				gameLoop = true;
 				break;
 		}
+		std::cout << "Move reussi" << std::endl;
 		current.SpawnTile();
 		current.RefreshScreen();
 	}
