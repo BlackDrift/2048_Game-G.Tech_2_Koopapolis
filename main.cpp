@@ -3,6 +3,7 @@
 #include "Tile.h"
 #include "Map.h"
 #include "time.h"
+#include "Game.h"
 #include <conio.h>
 //#include "Move.h"
 
@@ -29,35 +30,20 @@ int main()
 	current.RefreshScreen();
 	std::cout << std::endl;
 	//std::cout << current.CheckIsDone() << std::endl;
-	
-	
+
 	while (gameLoop)
-	{
-		gameLoop = false;
-		int c = 0;
-		switch ((c = _getch()))
+	{	
+		int c = _getch();
+		if (!game::GameEvent(c, current))
 		{
-			case KEY_UP:
-				current.MoveTiles('u');
-				break;
-			case KEY_DOWN:
-				current.MoveTiles('d');
-				break;
-			case KEY_LEFT:
-				current.MoveTiles('l');
-				break;
-			case KEY_RIGHT:
-				current.MoveTiles('r');
-				break;
-			default:
-				std::cout << "???" << std::endl;
-				gameLoop = true;
-				break;
+			current.SpawnTile();
+			current.RefreshScreen();
 		}
-		std::cout << "Move reussi" << std::endl;
-		current.SpawnTile();
-		current.RefreshScreen();
+		//if (current.CheckIsDone())
+			//gameLoop = 0;
 	}
+	
+
 	
 	return 0;
 }

@@ -17,8 +17,8 @@ Map::Map()
 			tile.value = 0;
 			tile.x = i + 1;
 			tile.y = j + 1;
-			this->mContent.push_back((tile));
 			tile.pos = position;
+			this->mContent.push_back((tile));
 		}
 	}
 	for (int k = 0; k < 2; k++)
@@ -139,7 +139,7 @@ void Map::MoveTiles(char direction)
 		for (int i = this->size - 1; i >= 0; --i)
 		{
 			for (int j = 0; j < this->size; j++)
-				this->MoveDown(this->mContent.at(i + (this->size * j)));
+				this->MoveRight(this->mContent.at(i + (this->size * j)));
 		}
 		break;
 	default:
@@ -153,27 +153,35 @@ bool Map::CanEvolve(char direction, Tile tile)
 {
 	int tileX = tile.x;
 	int tileY = tile.y;
-	int* tab[2];
+	std::cout << "TeSt" << std::endl;
 
 	switch (direction)
 	{
 	case('u'):
-		if (tile.x > 1 && tile.value == this->TileAt(tileX - 1, tileY).value)
+		if (tile.x > 1 && tile.value == this->TileAt(tileX - 1, tileY).value && tile.value != 0)
+			std::cout << "up ?" << std::endl;
 			return true;
 		break;
 	case ('d'):
-		if (tile.x < 4 && tile.value == this->TileAt(tileX + 1, tileY).value)
+		if (tile.x < 4 && tile.value == this->TileAt(tileX + 1, tileY).value && tile.value != 0)
+			std::cout << "down ?" << std::endl;
 			return true;
 		break;
 	case('l'):
-		if (tile.y > 1 && tile.value == this->TileAt(tileX, tileY - 1).value)
+		if (tile.y > 1 && tile.value == this->TileAt(tileX, tileY - 1).value && tile.value != 0)
+			std::cout << "left ?" << std::endl;
 			return true;
 		break;
 	case('r'):
-		if (tile.y < 4 && tile.value == this->TileAt(tileX, tileY + 1).value)
+		if (tile.y < 4 && tile.value == this->TileAt(tileX, tileY + 1).value && tile.value != 0)
+			std::cout << "right ?" << std::endl;
 			return true;
 		break;
+	default:
+		std::cout << "Can Evolve no1" << std::endl;
+		break;
 	}
+	std::cout << "Can Evolve no" << std::endl;
 	return false;
 }
 
@@ -245,8 +253,10 @@ void Map::MoveUp(Tile tile)
 {
 	if (CanEvolve('u', tile))
 	{
+		std::cout << "TEST1" << std::endl;
 		this->mContent.at(tile.pos - 4).Evolve();
 		tile.Reset();
+		std::cout << "TEST2" << std::endl;
 	}
 	else if (CanMove('u', tile))
 	{
