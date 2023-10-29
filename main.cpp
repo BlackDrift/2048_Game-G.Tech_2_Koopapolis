@@ -34,17 +34,15 @@ int main()
 	while (gameLoop)
 	{	
 		int c = _getch();
-		if (!game::GameEvent(c, current))
+		if (game::GameEvent(c, current) == 0)
 		{
 			current.SpawnTile();
-			current.RefreshScreen();
+			std::cout << "MOVE REUSSI YEEEEEEEEEEEEES" << std::endl;
+			//current.RefreshScreen();
 		}
 		//if (current.CheckIsDone())
 			//gameLoop = 0;
 	}
-	
-
-	
 	return 0;
 }
 

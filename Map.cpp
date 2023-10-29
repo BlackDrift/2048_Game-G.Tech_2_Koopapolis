@@ -11,14 +11,15 @@ Map::Map()
 	for (int i = 0; i < size; ++i)
 	{
 		for (int j = 0; j < size; ++j)
-		{
-			position += 1;
+		{			
 			Tile tile;
 			tile.value = 0;
 			tile.x = i + 1;
 			tile.y = j + 1;
 			tile.pos = position;
+			//std::cout << position;
 			this->mContent.push_back((tile));
+			position += 1;
 		}
 	}
 	for (int k = 0; k < 2; k++)
@@ -44,7 +45,9 @@ void	Map::PrintNb(int nb)
 		i++;
 	}
 	for (int j = 0; j < (sizeMax - i); j++)
+	{
 		std::cout << ' ';
+	}
 	std::cout << nb;
 
 }
@@ -52,7 +55,9 @@ void	Map::PrintNb(int nb)
 void	Map::PrintMap()
 {
 	for (int n = 0; n < (this->size * 5 + this->size + 1); n++)
+	{
 		std::cout << '-';
+	}
 	std::cout << std::endl;
 	for (int i = 0; i < this->size; ++i)
 	{
@@ -60,7 +65,7 @@ void	Map::PrintMap()
 		{
 			if (j == 0 || j == this->size)
 				std::cout << '|' ;
-			PrintNb(this->TileAt(j, i).value);
+			PrintNb(this->TileAt(i,j).value);
 			std::cout << '|';
 		}
 		std::cout << std::endl;
@@ -84,18 +89,6 @@ void	Map::RefreshScreen()
 
 }
 
-/*bool Map::IsValid(int x, int y)
-{
-}
-
-int*	Map::GetCoords(int position)
-{
-	int x = position / 4;
-	int y = position % 4;
-	int* tab[2] { x, y } ;
-	return tab;
-}*/
-
 Tile	Map::TileAt(int x, int y)
 {
 	return (this->mContent.at(4 * x + y));
@@ -108,8 +101,12 @@ bool	Map::CheckIsDone()
 
 	res = true;
 	for (int i = 0; i < this->squareSize; ++i)
-		if (this->mContent.at(i).value != 0 && this->CanMove('0',this->mContent.at(i)) == true)
+	{
+		if (this->mContent.at(i).value != 0 && this->CanMove('0', this->mContent.at(i)) == true)
+		{
 			res = false;
+		}
+	}
 	return res;
 }
 
@@ -119,27 +116,43 @@ void Map::MoveTiles(char direction)
 	switch (direction)
 	{
 	case ('u'):
+		std::cout << "MoveTiles 'u'" << std::endl;
 		for (int i = 0; i < this->squareSize; ++i)
+		{
+			std::cout << "Tile at " << i << " with value : " << this->mContent.at(i).value << std::endl;
 			this->MoveUp(this->mContent.at(i));
+			std::cout << "Tile at pos : " << i << " DONE" << std::endl << std::endl << std::endl;
+		}
+		this->PrintMap();
 		break;
 
 	case ('d'):
+		std::cout << "MoveTiles 'd'" << std::endl;
 		for (int i = this->squareSize - 1; i >= 0; --i)
+		{
+			std::cout << "Tile at " << i << " with value : " << this->mContent.at(i).value << std::endl;
 			this->MoveDown(this->mContent.at(i));
+			std::cout << "Tile at pos : " << i << " DONE" << std::endl << std::endl << std::endl;
+		}
+		this->PrintMap();
 		break;
 
 	case ('l'):
 		for (int i = 0; i < this->size; ++i)
 		{
 			for (int j = 0; j < this->size; j++)
+			{
 				this->MoveLeft(this->mContent.at(i + (this->size * j)));
+			}
 		}
 		break;
 	case ('r'):
 		for (int i = this->size - 1; i >= 0; --i)
 		{
 			for (int j = 0; j < this->size; j++)
+			{
 				this->MoveRight(this->mContent.at(i + (this->size * j)));
+			}
 		}
 		break;
 	default:
@@ -147,35 +160,39 @@ void Map::MoveTiles(char direction)
 	}
 }
 
-// Ca casse juste en dessous !!
-
 bool Map::CanEvolve(char direction, Tile tile)
 {
 	int tileX = tile.x;
 	int tileY = tile.y;
-	std::cout << "TeSt" << std::endl;
+	std::cout << "Can Evolve Check" << std::endl;
 
 	switch (direction)
 	{
 	case('u'):
-		if (tile.x > 1 && tile.value == this->TileAt(tileX - 1, tileY).value && tile.value != 0)
-			std::cout << "up ?" << std::endl;
+		std::cout << "Can Evolve Check 'u'" << std::endl;
+		std::cout << tile.x << " = tile.x | " << tile.value << " = tile.value" << std::endl;
+		if (tile.x > 1 && tile.value == this->TileAt(tileX - 2, tileY - 1).value && tile.value != 0)
+		{
 			return true;
+		}
 		break;
-	case ('d'):
-		if (tile.x < 4 && tile.value == this->TileAt(tileX + 1, tileY).value && tile.value != 0)
-			std::cout << "down ?" << std::endl;
+	case('d'):
+		std::cout << "Can Evolve Check 'd'" << std::endl;
+		std::cout << tile.x << " = tile.x | " << tile.value << " = tile.value" << std::endl;
+		if (tile.x < 4 && tile.value == this->TileAt(tileX, tileY - 1).value && tile.value != 0)
+		{
 			return true;
+		}
 		break;
 	case('l'):
-		if (tile.y > 1 && tile.value == this->TileAt(tileX, tileY - 1).value && tile.value != 0)
-			std::cout << "left ?" << std::endl;
+		if (tile.y > 1 && tile.value == this->TileAt(tileX - 1, tileY - 2).value && tile.value != 0)
 			return true;
 		break;
 	case('r'):
-		if (tile.y < 4 && tile.value == this->TileAt(tileX, tileY + 1).value && tile.value != 0)
-			std::cout << "right ?" << std::endl;
+		if (tile.y < 4 && tile.value == this->TileAt(tileX - 1, tileY).value && tile.value != 0)
+		{
 			return true;
+		}
 		break;
 	default:
 		std::cout << "Can Evolve no1" << std::endl;
@@ -190,26 +207,38 @@ bool Map::CanMove(char direction, Tile tile)
 	int	tileX = tile.x;
 	int tileY = tile.y;
 	int position = tile.pos;
-	int* tab[2];
+
+	std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
+	std::cout << "call Can Move" << std::endl;
+	std::cout << "Tile.value == " << tile.value << " | Position == " << position << " | tileX == " << tileX << " | tileY == " << tileY << std::endl;
 
 	switch (direction)
 	{
 		
 	case('u'):
-		if (tile.x > 1 && TileAt(tileX - 1, tileY).value == 0)
+		if (tile.value != 0 && tile.x > 1 && TileAt(tileX - 2, tileY - 1).value == 0)
+		{
+			std::cout << "Tile y - 1 pos == " << TileAt(tileX - 2, tileY - 1).pos << std::endl;
 			return true;
+		}
 		break;
 	case ('d'):
-		if (tile.x < 4 && TileAt(tileX + 1, tileY).value == 0)
+		if (tile.value != 0 && tile.x < 4 && TileAt(tileX, tileY - 1).value == 0)
+		{
 			return true;
+		}
 		break;
 	case('l'):
-		if (tile.y > 1 && TileAt(tileX, tileY - 1).value == 0)
+		if (tile.value != 0 && tile.y > 1 && TileAt(tileX - 1, tileY - 2).value == 0)
+		{
 			return true;
+		}
 		break;
 	case('r'):
-		if (tile.y < 4 && TileAt(tileX, tileY + 1).value == 0)
+		if (tile.value != 0 && tile.y < 4 && TileAt(tileX - 1, tileY).value == 0)
+		{
 			return true;
+		}
 		break;
 	/*case('0'):
 		if ((position + 1 >= 0 && position + 1 < 16) && ((this->mContent.at(position + 1).value == 0)) || (this->mContent.at(position + 1).value == this->mContent.at(position).value))
@@ -223,66 +252,98 @@ bool Map::CanMove(char direction, Tile tile)
 		else
 			return false;*/
 	}
+	std::cout << "TEST" << std::endl;
+	//std::cout << "tileX = " << tile.x << " | Tile value x - 1 == " << TileAt(tileX - 1, tileY).value << std::endl;
+	std::cout << "Can't Move" << std::endl;
 	return false;
 }
 
 void Map::Swap(char direction, Tile tile)
 {
+	std::cout << "SWAP : " << tile.pos << std::endl;
 	switch (direction)
 	{
 	case('u'):
+		std::cout << "Tile.value == " << tile.value << " | Tile(x-1).value == " << this->mContent.at(tile.pos - 4).value << std::endl;
 		this->mContent.at(tile.pos - 4).value = tile.value;
-		tile.value = 0;
+		this->mContent.at(tile.pos).Reset();
 		break;
 	case('d'):
 		this->mContent.at(tile.pos + 4).value = tile.value;
-		tile.value = 0;
+		this->mContent.at(tile.pos).Reset();
 		break;
 	case('l'):
 		this->mContent.at(tile.pos - 1).value = tile.value;
-		tile.value = 0;
+		this->mContent.at(tile.pos).Reset();
 		break;
 	case('r'):
 		this->mContent.at(tile.pos + 1).value = tile.value;
-		tile.value = 0;
+		this->mContent.at(tile.pos).Reset();
 		break;
 	}
 }
 
+
 void Map::MoveUp(Tile tile)
 {
-	if (CanEvolve('u', tile))
+	bool	hasEvolved = false;
+	std::cout << "tile.y == " << tile.y << std::endl;
+	for (int i = 0; i < tile.x + 1; ++i)
 	{
-		std::cout << "TEST1" << std::endl;
-		this->mContent.at(tile.pos - 4).Evolve();
-		tile.Reset();
-		std::cout << "TEST2" << std::endl;
-	}
-	else if (CanMove('u', tile))
-	{
-		while (CanMove('u', tile) && tile.pos > 3){
-			this->Swap('l', tile);
+		std::cout << "Moveup tour " << i << std::endl;
+		if (CanEvolve('u', tile) && !hasEvolved)
+		{
+			std::cout << "CanEvolve True" << std::endl;
+			this->mContent.at(tile.pos - 4).Evolve();
+			this->mContent.at(tile.pos).Reset();
+			hasEvolved = true;
+		}
+		else if (CanMove('u', tile))
+		{
+			std::cout << "CanMove True" << std::endl;
+			this->Swap('u', tile);
 			tile = this->mContent.at(tile.pos - 4);
 		}
-
+		else
+		{
+			i = tile.x;
+			std::cout << "Can't Move nor Evolve up" << std::endl;
+		}
 	}
+	this->PrintMap();
+	std::cout << std::endl;
+	//std::cout << "Can't Move nor Evolve" << std::endl;
 }
 
 void Map::MoveDown(Tile tile)
 {
-	if (CanEvolve('d', tile))
+	bool	hasEvolved = false;
+	std::cout << "tile.y == " << tile.y << std::endl;
+	for (int i = tile.x + 1; i >= 0; --i)
 	{
-		this->mContent.at(tile.pos + 4).Evolve();
-		tile.Reset();
-	}
-	else if (CanMove('d', tile))
-	{
-		while (CanMove('d', tile) && tile.pos < 12){
+		std::cout << "Movedown tour " << i << std::endl;
+		if (CanEvolve('d', tile) && !hasEvolved)
+		{
+			std::cout << "CanEvolve True" << std::endl;
+			this->mContent.at(tile.pos + 4).Evolve();
+			this->mContent.at(tile.pos).Reset();
+			hasEvolved = true;
+		}
+		else if (CanMove('d', tile))
+		{
+			std::cout << "CanMove True" << std::endl;
 			this->Swap('d', tile);
 			tile = this->mContent.at(tile.pos + 4);
 		}
-
+		else
+		{
+			i = 0;
+			std::cout << "Can't Move nor Evolve up" << std::endl;
+		}
 	}
+	this->PrintMap();
+	std::cout << std::endl;
+	//std::cout << "Can't Move nor Evolve" << std::endl;
 }
 
 void Map::MoveLeft(Tile tile)

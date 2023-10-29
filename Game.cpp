@@ -1,4 +1,4 @@
-#include "Map.h"
+ #include "Map.h"
 #include "Game.h"
 
 #define KEY_UP 72
@@ -8,6 +8,7 @@
 
 bool	game::GameEvent(int	key, Map map)
 {
+	std::cout << "GameEvent" << std::endl;
 	switch (key)
 		{
 			case KEY_UP:
