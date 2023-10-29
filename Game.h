@@ -3,5 +3,5 @@
 
 namespace game
 {
-	bool	GameEvent(int	key, Map map);
+	void	GameEvent(int	key, Map map);
 }

@@ -16,30 +16,17 @@ int main()
 {
 	srand(time(0));
 	bool gameLoop = true;
-	Tile* tile1 = new Tile();
-	Tile* tile2 = new Tile();
-	Tile* tile3 = new Tile();
-	std::cout << tile1->value << std::endl;
-	tile1->Evolve();
-	std::cout << tile1->value << std::endl;
-	std::cout << tile2->value << std::endl;
-	std::cout << tile3->value << std::endl;
 	Map current;
-	current.PrintMap();
+
 	current.SpawnTile();
-	current.RefreshScreen();
+	current.SpawnTile();
+	current.PrintMap();
 	std::cout << std::endl;
-	//std::cout << current.CheckIsDone() << std::endl;
 
 	while (gameLoop)
 	{	
 		int c = _getch();
-		if (game::GameEvent(c, current) == 0)
-		{
-			current.SpawnTile();
-			std::cout << "MOVE REUSSI YEEEEEEEEEEEEES" << std::endl;
-			//current.RefreshScreen();
-		}
+		game::GameEvent(c, current);
 		//if (current.CheckIsDone())
 			//gameLoop = 0;
 	}
