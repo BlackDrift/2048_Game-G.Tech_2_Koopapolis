@@ -23,9 +23,7 @@ Map::Map()
 		}
 	}
 	for (int k = 0; k < 2; k++)
-	{
 		this->SpawnTile();
-	}
 }
 
 void	Map::SetSize()
@@ -34,22 +32,23 @@ void	Map::SetSize()
 	this->squareSize = (this->size * this->size);
 }
 
+// PrintNb prints 5 - Nb size spaces to keep a 5 digits formated tab
+
 void	Map::PrintNb(int nb)
 {
 	int	i = 1;
 	int	tmp = nb;
 	int	sizeMax = 5;
-	while (tmp / 10 >= 10)
+	while (tmp >= 10)
 	{
-		tmp /= 10;
-		i++;
+		tmp = tmp / 10;
+		++i;
 	}
-	for (int j = 0; j < (sizeMax - i); j++)
+	for (int j = 0; j < (sizeMax - i); ++j)
 	{
 		std::cout << ' ';
 	}
 	std::cout << nb;
-
 }
 
 void	Map::PrintMap()
@@ -72,6 +71,12 @@ void	Map::PrintMap()
 	}
 	for (int m = 0; m < (this->size * 5 + this->size + 1); m++)
 		std::cout << '-';
+	if (this->isWon)
+	{
+		std::cout << std::endl << std::endl;
+		std::cout << "GAME WON GOOD JOB" << std::endl;
+		std::cout << "but you can still play" << std::endl;
+	}
 }
 
 void	Map::SpawnTile()
@@ -89,27 +94,35 @@ void	Map::RefreshScreen()
 
 }
 
+// Get tile at (x, y) coords
+
 Tile	Map::TileAt(int x, int y)
 {
 	return (this->mContent.at(4 * x + y));
 }
 
+//CheckIsDone checks CanMove and CanEvolve in all the directions but first checks if there is no empty tile.
 
 bool	Map::CheckIsDone()
 {
-	bool res;
-
-	res = true;
 	for (int i = 0; i < this->squareSize; ++i)
 	{
-		if (this->mContent.at(i).value != 0 && this->CanMove('0', this->mContent.at(i)) == true)
-		{
-			res = false;
-		}
+		if (this->mContent.at(i).value == 0)
+			return false;
+		else if (this->mContent.at(i).value == 2048 && !this->isWon)
+			this->isWon = true;
 	}
-	return res;
+	for (int i = 0; i < this->squareSize; ++i)
+	{
+		if (this->CanMove('0', this->mContent.at(i)))
+			return false;
+		if (this->CanEvolve('0', this->mContent.at(i)))
+			return false;
+	}
+	return true;
 }
 
+//MoveTiles calls the other move functions but for every single tile of the tab
 
 void Map::MoveTiles(char direction)
 {
@@ -164,28 +177,32 @@ bool Map::CanEvolve(char direction, Tile tile)
 	{
 	case('u'):
 		if (tile.x > 1 && tile.value == this->TileAt(tileX - 2, tileY - 1).value && tile.value != 0)
-		{
 			return true;
-		}
 		break;
 	case('d'):
 		if (tile.x < 4 && tile.value == this->TileAt(tileX, tileY - 1).value && tile.value != 0)
-		{
 			return true;
-		}
 		break;
 	case('l'):
 		if (tile.y > 1 && tile.value == this->TileAt(tileX - 1, tileY - 2).value && tile.value != 0)
-		{
 			return true;
-		}
 		break;
 	case('r'):
 		if (tile.y < 4 && tile.value == this->TileAt(tileX - 1, tileY).value && tile.value != 0)
-		{
 			return true;
-		}
 		break;
+// case ('0') is used for CheckIsDone and does all the cases together
+	case('0'):
+		if (tile.x > 1 && tile.value == this->TileAt(tileX - 2, tileY - 1).value && tile.value != 0)
+			return true;
+		else if (tile.x < 4 && tile.value == this->TileAt(tileX, tileY - 1).value && tile.value != 0)
+			return true;
+		else if (tile.y > 1 && tile.value == this->TileAt(tileX - 1, tileY - 2).value && tile.value != 0)
+			return true;
+		else if (tile.y < 4 && tile.value == this->TileAt(tileX - 1, tileY).value && tile.value != 0)
+			return true;
+		else
+			return false;
 	default:
 		break;
 	}
@@ -203,39 +220,32 @@ bool Map::CanMove(char direction, Tile tile)
 		
 	case('u'):
 		if (tile.value != 0 && tile.x > 1 && TileAt(tileX - 2, tileY - 1).value == 0)
-		{
 			return true;
-		}
 		break;
 	case ('d'):
 		if (tile.value != 0 && tile.x < 4 && TileAt(tileX, tileY - 1).value == 0)
-		{
 			return true;
-		}
 		break;
 	case ('l'):
 		if (tile.value != 0 && tile.y > 1 && TileAt(tileX - 1, tileY - 2).value == 0)
-		{
 			return true;
-		}
 		break;
 	case ('r'):
 		if (tile.value != 0 && tile.y < 4 && TileAt(tileX - 1, tileY).value == 0)
-		{
 			return true;
-		}
 		break;
-	/*case('0'):
-		if ((position + 1 >= 0 && position + 1 < 16) && ((this->mContent.at(position + 1).value == 0)) || (this->mContent.at(position + 1).value == this->mContent.at(position).value))
+	case('0'):
+// case ('0') is used for CheckIsDone and does all the cases together
+		if (tile.value != 0 && tile.x > 1 && TileAt(tileX - 2, tileY - 1).value == 0)
 			return true;
-		else if ((position - 1 >= 0 && position - 1 < 16) && ((this->mContent.at(position - 1).value == 0)) || (this->mContent.at(position - 1).value == this->mContent.at(position).value))
+		else if (tile.value != 0 && tile.x < 4 && TileAt(tileX, tileY - 1).value == 0)
 			return true;
-		else if ((position + 4 >= 0 && position + 4 < 16) && ((this->mContent.at(position + 4).value == 0)) || (this->mContent.at(position + 4).value == this->mContent.at(position).value))
+		else if (tile.value != 0 && tile.y > 1 && TileAt(tileX - 1, tileY - 2).value == 0)
 			return true;
-		else if ((position - 4 >= 0 && position - 4 < 16) && ((this->mContent.at(position - 4).value == 0)) || (this->mContent.at(position - 4).value == this->mContent.at(position).value))
+		else if (tile.value != 0 && tile.y < 4 && TileAt(tileX - 1, tileY).value == 0)
 			return true;
 		else
-			return false;*/
+			return false;
 	}
 	return false;
 }
@@ -262,6 +272,9 @@ void Map::Swap(char direction, Tile tile)
 		break;
 	}
 }
+
+
+// Move in direction functions
 
 
 void Map::MoveUp(Tile tile)

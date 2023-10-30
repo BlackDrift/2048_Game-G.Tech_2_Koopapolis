@@ -11,6 +11,7 @@ public:
 	//Attributes
 	int	size;
 	int squareSize;
+	bool isWon;
 	std::vector<Tile> mContent;
 
 	//Constructor

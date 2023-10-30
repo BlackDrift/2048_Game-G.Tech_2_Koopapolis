@@ -1,16 +1,12 @@
 #include <iostream>
+#include <conio.h>
+#include <time.h>
+#include <Windows.h>
+
 #include "main.h"
 #include "Tile.h"
 #include "Map.h"
-#include "time.h"
 #include "Game.h"
-#include <conio.h>
-//#include "Move.h"
-
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_LEFT 75
-#define KEY_RIGHT 77
 
 int main() 
 {
@@ -21,19 +17,19 @@ int main()
 	current.SpawnTile();
 	current.SpawnTile();
 	current.PrintMap();
-	std::cout << std::endl;
 
 	while (gameLoop)
 	{	
 		int c = _getch();
-		game::GameEvent(c, current);
-		//if (current.CheckIsDone())
-			//gameLoop = 0;
+		if (game::GameEvent(c, &current) == 1)
+			gameLoop = false;
+		if (current.CheckIsDone())
+		{
+			std::cout << std::endl << std::endl << "Game Over" << std::endl;
+			gameLoop = false;
+		}
+		Sleep(100);
 	}
 	return 0;
 }
 
-/*
-
-
-*/
